@@ -21,4 +21,4 @@ class MainBlueprintTest(TestCase):
         response = self.client.get('/')
 
         self.assertEqual(200, response.status_code)
-        self.assertEqual(b'stateless-password-manager', response.data)
+        self.assertIn('Hello Friend.', str(response.data))
