@@ -10,7 +10,7 @@ class MainBlueprintTest(TestCase):
     """TODO: add class docstring"""
 
     def create_app(self):
-        return create_app(app_settings='project.config.TestingConfig')
+        return create_app(settings='project.config.TestingConfig')
 
     def test_index_page(self):
         """TODO: add method docstring"""

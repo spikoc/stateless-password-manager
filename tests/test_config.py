@@ -1,5 +1,6 @@
 """
-    TODO: add module docstring
+    Test the configuration parameters for the different environments (development, testing and
+production).
 """
 import os
 
@@ -9,10 +10,10 @@ from project import create_app
 
 
 class DevelopmentConfigTest(TestCase):
-    """TODO: add class docstring"""
+    """Test the development environment settings."""
 
     def create_app(self):
-        return create_app(app_settings='project.config.DevelopmentConfig')
+        return create_app(settings='project.config.DevelopmentConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
@@ -50,10 +51,10 @@ class DevelopmentConfigTest(TestCase):
 
 
 class TestingConfigTest(TestCase):
-    """TODO: add class docstring"""
+    """Test the testing environment settings."""
 
     def create_app(self):
-        return create_app(app_settings='project.config.TestingConfig')
+        return create_app(settings='project.config.TestingConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
@@ -87,10 +88,10 @@ class TestingConfigTest(TestCase):
 
 
 class ProductionConfigTest(TestCase):
-    """TODO: add class docstring"""
+    """Test the production environment settings."""
 
     def create_app(self):
-        return create_app(app_settings='project.config.ProductionConfig')
+        return create_app(settings='project.config.ProductionConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
