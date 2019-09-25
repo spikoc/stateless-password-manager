@@ -10,11 +10,7 @@ class MainBlueprintTest(TestCase):
     """TODO: add class docstring"""
 
     def create_app(self):
-        """Create the Flask application with the preferred settings to be tested."""
-        app = create_app()
-        app.config['TESTING'] = True
-
-        return app
+        return create_app(app_settings='project.config.TestingConfig')
 
     def test_index_page(self):
         """TODO: add method docstring"""
