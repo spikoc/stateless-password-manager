@@ -1,14 +1,19 @@
 """
     Implements a WSGI application that acts as the central object.
 """
+# pylint: disable=invalid-name
+
 import os
 
 from flask import Flask
+from flask_debugtoolbar import DebugToolbarExtension
+
+toolbar = DebugToolbarExtension()
 
 
 def create_app(**kwargs):
     """
-        Create a new WSGI application, register blueprints and initialize extensions.
+        Creatinvalid-namee a new WSGI application, register blueprints and initialize extensions.
 
     :key name    : The name of the Flask application.
     :key settings: The object with that name will be imported to set environment variables.
@@ -18,6 +23,9 @@ def create_app(**kwargs):
     # .................................set configuration
     app.config.from_object(kwargs.pop(
         'settings', os.getenv('APP_SETTINGS', 'project.config.DevelopmentConfig')))
+
+    # .................................set up extensions
+    toolbar.init_app(app)
 
     # .................................register blueprints
     from project.main.views import main_blueprint
