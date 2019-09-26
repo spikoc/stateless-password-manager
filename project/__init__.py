@@ -29,7 +29,9 @@ def create_app(**kwargs):
 
     # .................................register blueprints
     from project.main.views import main_blueprint
+    from project.password.views import password_blueprint
 
     app.register_blueprint(main_blueprint)
+    app.register_blueprint(password_blueprint)
 
     return app
