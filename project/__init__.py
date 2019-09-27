@@ -15,7 +15,7 @@ toolbar = DebugToolbarExtension()
 
 def create_app(**kwargs):
     """
-        Creatinvalid-namee a new WSGI application, register blueprints and initialize extensions.
+        Create a new WSGI application, register blueprints and initialize extensions.
 
     :key name    : The name of the Flask application.
     :key settings: The object with that name will be imported to set environment variables.
@@ -32,9 +32,9 @@ def create_app(**kwargs):
 
     # .................................register blueprints
     from project.main.views import main_blueprint
-    from project.password.views import password_blueprint
+    from project.matrix.views import matrix_blueprint
 
     app.register_blueprint(main_blueprint)
-    app.register_blueprint(password_blueprint)
+    app.register_blueprint(matrix_blueprint)
 
     return app
