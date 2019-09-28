@@ -11,7 +11,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 class BaseConfig:
     """Base Configuration"""
 
-    APP_NAME = os.getenv('APP_NAME', 'stateless-matrix-manager')
+    APP_NAME = os.getenv('APP_NAME', 'stateless-password-manager')
     DEBUG_TB_ENABLED = False
     SECRET_KEY = os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a')
     WTF_CSRF_ENABLED = False
