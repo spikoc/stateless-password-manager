@@ -8,8 +8,10 @@ import os
 from flask import Flask
 from flask_bootstrap import Bootstrap
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_sqlalchemy import SQLAlchemy
 
 bootstrap = Bootstrap()
+db = SQLAlchemy()
 toolbar = DebugToolbarExtension()
 
 
@@ -28,6 +30,7 @@ def create_app(**kwargs):
 
     # .................................set up extensions
     bootstrap.init_app(app)
+    db.init_app(app)
     toolbar.init_app(app)
 
     # .................................register blueprints

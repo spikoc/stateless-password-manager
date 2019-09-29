@@ -8,16 +8,79 @@
     <hr />
 
     <form class="form" role="form" method="post" action="">
-        <div class="col-lg-4 col-sm-4">
-            {{ wtf.form_field(form.name) }}
-            {{ wtf.form_field(form.algorithm) }}
-            {{ wtf.form_field(form.salt) }}
-            {{ wtf.form_field(form.iterations) }}
-            {{ wtf.form_field(form.uppercase) }}
-            {{ wtf.form_field(form.lowercase) }}
-            {{ wtf.form_field(form.digits) }}
-            {{ wtf.form_field(form.symbols) }}
-            {{ wtf.form_field(form.length) }}
+        <div class="form-group row">
+            <label for="name-{{ model.id }}" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" id="name-{{ model.id }}" name="name" class="form-control"
+                       value="{{ model.name }}" />
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="algorithm-{{ model.id }}" class="col-sm-2 col-form-label">Algorithm</label>
+            <div class="col-sm-10">
+                <input type="text" id="algorithm-{{ model.id }}" name="algorithm" class="form-control"
+                       value="{{ model.algorithm }}" placeholder="Select the hash digest algorithm..."/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="salt-{{ model.id }}" class="col-sm-2 col-form-label">Salt</label>
+            <div class="col-sm-10">
+                <input type="text" id="salt-{{ model.id }}" name="salt" class="form-control"
+                       value="{{ model.salt }}" />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-row">
+            <div class="form-check col-sm-6">
+                <div class="col-sm-2">
+                    <input type="checkbox" id="uppercase" class="form-check-input" />
+                </div>
+                <label for="uppercase" class="col-sm-10">Contains uppercase letters</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <div class="col-sm-2">
+                    <input type="checkbox" id="digits" class="form-check-input" />
+                </div>
+                <label for="digits" class="col-sm-10">Contains digits</label>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-check col-sm-6">
+                <div class="col-sm-2">
+                    <input type="checkbox" id="lowercase" class="form-check-input" />
+                </div>
+                <label for="lowercase" class="col-sm-10">Contains lowercase letters</label>
+            </div>
+            <div class="form-check col-sm-6">
+                <div class="col-sm-2">
+                    <input type="checkbox" id="symbols" class="form-check-input" />
+                </div>
+                <label for="symbols" class="col-sm-10">Contains symbols</label>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-row">
+            <div class="form-group row col-sm-6">
+                <label for="iterations-{{ model.id }}" class="col-sm-2 col-form-label">Iterations</label>
+                <div class="col-sm-10">
+                    <input type="text" id="iterations-{{ model.id }}" name="iterations" class="form-control"
+                           value="{{ model.iterations }}" />
+                </div>
+            </div>
+            <div class="form-group row col-sm-6">
+                <label for="length-{{ model.id }}" class="col-sm-2 col-form-label">Length</label>
+                <div class="col-sm-10">
+                    <input type="text" id="length-{{ model.id }}" name="length" class="form-control"
+                           value="{{ model.length }}" />
+                </div>
+            </div>
         </div>
 
         <button class="btn btn-success" type="submit">Save</button>
