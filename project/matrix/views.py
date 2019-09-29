@@ -20,10 +20,26 @@ def index():
     return render_template('matrix/index.html', items=Matrix.query.all())
 
 
-@matrix_blueprint.route('/add')
+@matrix_blueprint.route('/add', methods=['GET', 'POST'])
 def add():
     """TODO: add function docstring"""
-    return render_template('matrix/edit.html')
+    form = EditForm(request.form)
+    if form.validate_on_submit():
+        print(
+            hexlify(
+                pbkdf2_hmac(
+                    form.algorithm.data.strip(),
+                    'password'.encode('utf-8'),
+                    form.salt.data.strip().encode('utf-8'),
+                    form.iterations.data,
+                    dklen=form.length.data if form.length.data else None
+                )
+            )
+        )
+
+        return redirect(url_for('matrix.index'))
+
+    return render_template('matrix/edit.html', form=form)
 
 
 @matrix_blueprint.route('/delete')
