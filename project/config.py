@@ -14,6 +14,8 @@ class BaseConfig:
     APP_NAME = os.getenv('APP_NAME', 'stateless-password-manager')
     DEBUG_TB_ENABLED = False
     SECRET_KEY = os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a')
+    SQLALCHEMY_DATABASE_URI = 'postgres://postgres:postgres@localhost:5432/spamandb'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
     WTF_CSRF_ENABLED = False
 
 
