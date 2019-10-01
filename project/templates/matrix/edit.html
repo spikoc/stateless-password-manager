@@ -12,26 +12,26 @@
         {{ wtf.form_errors(form) }}
 
         <div class="form-group row">
-            <label for="name-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">Name</label>
+            <label for="name-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.name.label }}</label>
             <div class="col-sm-10">
                 <input type="text" id="name-{{ model.id if model else 0 }}" name="name" class="form-control"
-                       value="{{ model.name if model }}" placeholder="Name of the matrix" />
+                       value="{{ model.name if model }}" placeholder="{{ form.name.description }}" />
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="algorithm-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">Algorithm</label>
+            <label for="algorithm-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.algorithm.label }}</label>
             <div class="col-sm-10">
                 <input type="text" id="algorithm-{{ model.id if model else 0 }}" name="algorithm" class="form-control"
-                       value="{{ model.algorithm if model }}" placeholder="Select the hash digest algorithm"/>
+                       value="{{ model.algorithm if model }}" placeholder="{{ form.algorithm.description }}"/>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="salt-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">Salt</label>
+            <label for="salt-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.salt.label }}</label>
             <div class="col-sm-10">
                 <input type="text" id="salt-{{ model.id if model else 0 }}" name="salt" class="form-control"
-                       value="{{ model.salt if model }}" placeholder="Salts make the search space larger in the case of brute forcing"/>
+                       value="{{ model.salt if model }}" placeholder="{{ form.salt.description }}"/>
             </div>
         </div>
 
@@ -71,17 +71,17 @@
 
         <div class="form-row">
             <div class="form-group row col-sm-6">
-                <label for="iterations-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">Iterations</label>
+                <label for="iterations-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.iterations.label }}</label>
                 <div class="col-sm-10">
                     <input type="text" id="iterations-{{ model.id if model else 0 }}" name="iterations" class="form-control"
-                           value="{{ model.iterations if model }}" placeholder="Number or iterations in calculation (higher means more computation required)" />
+                           value="{{ model.iterations if model }}" placeholder="{{ form.iterations.description }}" />
                 </div>
             </div>
             <div class="form-group row col-sm-6">
-                <label for="length-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">Length</label>
+                <label for="length-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.length.label }}</label>
                 <div class="col-sm-10">
                     <input type="text" id="length-{{ model.id if model else 0 }}" name="length" class="form-control"
-                           value="{{ model.length if model }}" placeholder="length of the output password (not required)" />
+                           value="{{ model.length if model }}" placeholder="{{ form.length.description }}" />
                 </div>
             </div>
         </div>
