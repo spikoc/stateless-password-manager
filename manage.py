@@ -11,7 +11,7 @@ import unittest
 from coverage import coverage
 from flask.cli import FlaskGroup
 
-from project import create_app
+from project import create_app, db
 
 # app = create_app()
 cli = FlaskGroup(create_app=create_app)
@@ -23,9 +23,8 @@ cov = coverage(branch=True, include='project/*', omit=[
 cov.start()
 
 
-@cli.command()
-def run_coverage():
-    """Run the unit tests with coverage."""
+def _execute_unittests():
+    """Run the unittests."""
     try:
         tests = unittest.TestLoader().discover('tests')
         result = unittest.TextTestRunner(verbosity=2).run(tests)
@@ -39,9 +38,32 @@ def run_coverage():
         cov.stop()
         cov.save()
 
-    time.sleep(1)  # ..................avoid collapse
-    print('Coverage Summary:')
 
+@cli.command()
+def create_db():
+    """Clear the database and create a new schema."""
+    print('[*] Drops all tables...')
+    db.drop_all()
+
+    print('[*] Creates all tables, again...')
+    db.create_all()
+
+    print('DONE')
+
+
+@cli.command()
+def test():
+    """Run the unittests without coverage."""
+    _execute_unittests()
+
+
+@cli.command()
+def test_with_coverage():
+    """Run the unittests with coverage."""
+    _execute_unittests()
+    time.sleep(1)  # ..................avoid collapse
+
+    print('Coverage Summary:')
     cov.report()
     cov.html_report()
     cov.erase()
