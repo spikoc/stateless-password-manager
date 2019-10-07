@@ -6,7 +6,7 @@ from flask_testing import TestCase
 from project import create_app
 
 
-class EvaluateBlueprintTest(TestCase):
+class MatrixBlueprintTest(TestCase):
     """TODO: add class docstring"""
 
     def create_app(self):
@@ -14,7 +14,6 @@ class EvaluateBlueprintTest(TestCase):
 
     def test_index_page(self):
         """TODO: add method docstring"""
-        response = self.client.get('/evaluate/')
+        response = self.client.get('/matrix/')
 
         self.assertEqual(200, response.status_code)
-        self.assertIn('Password', str(response.data))
