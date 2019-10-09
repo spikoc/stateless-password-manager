@@ -3,22 +3,26 @@
 production).
 """
 import os
+import warnings
 
 from flask_testing import TestCase
 
 from project import create_app
+
+APP_NAME = os.getenv('APP_NAME', 'stateless-password-manager')
+SECRET_KEY = os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a')
 
 
 class DevelopmentConfigTest(TestCase):
     """Test the development environment settings."""
 
     def create_app(self):
+        warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.DevelopmentConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
-        self.assertEqual(os.getenv('APP_NAME', 'stateless-password-manager'),
-                         self.app.config.get('APP_NAME'))
+        self.assertEqual(APP_NAME, self.app.config.get('APP_NAME'))
 
     def test_debug_enabled(self):
         """test debug mode is enabled"""
@@ -38,8 +42,16 @@ class DevelopmentConfigTest(TestCase):
 
     def test_secret_key(self):
         """test the secret key value is valid"""
-        self.assertEqual(os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a'),
-                         self.app.config.get('SECRET_KEY'))
+        self.assertEqual(SECRET_KEY, self.app.config.get('SECRET_KEY'))
+
+    def test_sqlalchemy_database_uri(self):
+        """test the database URI for the connection"""
+        uri = 'postgres://postgres:postgres@localhost:5432/spamandb'
+        self.assertEqual(uri, self.app.config.get('SQLALCHEMY_DATABASE_URI'))
+
+    def test_sqlalchemy_track_modifications_disabled(self):
+        """test track modifications of objects is disabled"""
+        self.assertFalse(self.app.config.get('SQLALCHEMY_TRACK_MODIFICATIONS'))
 
     def test_testing_disabled(self):
         """test testing mode is disabled"""
@@ -54,12 +66,12 @@ class TestingConfigTest(TestCase):
     """Test the testing environment settings."""
 
     def create_app(self):
+        warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.TestingConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
-        self.assertEqual(os.getenv('APP_NAME', 'stateless-password-manager'),
-                         self.app.config.get('APP_NAME'))
+        self.assertEqual(APP_NAME, self.app.config.get('APP_NAME'))
 
     def test_debug_disabled(self):
         """test debug mode is disabled"""
@@ -75,8 +87,16 @@ class TestingConfigTest(TestCase):
 
     def test_secret_key(self):
         """test the secret key value is valid"""
-        self.assertEqual(os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a'),
-                         self.app.config.get('SECRET_KEY'))
+        self.assertEqual(SECRET_KEY, self.app.config.get('SECRET_KEY'))
+
+    def test_sqlalchemy_database_uri(self):
+        """test the database URI for the connection"""
+        uri = 'postgres://postgres:postgres@localhost:5432/spamandb_test'
+        self.assertEqual(uri, self.app.config.get('SQLALCHEMY_DATABASE_URI'))
+
+    def test_sqlalchemy_track_modifications_disabled(self):
+        """test track modifications of objects is disabled"""
+        self.assertFalse(self.app.config.get('SQLALCHEMY_TRACK_MODIFICATIONS'))
 
     def test_testing_enabled(self):
         """test testing mode is enabled"""
@@ -91,12 +111,12 @@ class ProductionConfigTest(TestCase):
     """Test the production environment settings."""
 
     def create_app(self):
+        warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.ProductionConfig')
 
     def test_app_name(self):
         """test the application name is correct"""
-        self.assertEqual(os.getenv('APP_NAME', 'stateless-password-manager'),
-                         self.app.config.get('APP_NAME'))
+        self.assertEqual(APP_NAME, self.app.config.get('APP_NAME'))
 
     def test_debug_disabled(self):
         """test debug mode is disabled"""
@@ -112,8 +132,16 @@ class ProductionConfigTest(TestCase):
 
     def test_secret_key(self):
         """test the secret key value is valid"""
-        self.assertEqual(os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a'),
-                         self.app.config.get('SECRET_KEY'))
+        self.assertEqual(SECRET_KEY, self.app.config.get('SECRET_KEY'))
+
+    def test_sqlalchemy_database_uri(self):
+        """test the database URI for the connection"""
+        uri = 'postgres://postgres:postgres@localhost:5432/spamandb'
+        self.assertEqual(uri, self.app.config.get('SQLALCHEMY_DATABASE_URI'))
+
+    def test_sqlalchemy_track_modifications_disabled(self):
+        """test track modifications of objects is disabled"""
+        self.assertFalse(self.app.config.get('SQLALCHEMY_TRACK_MODIFICATIONS'))
 
     def test_testing_disabled(self):
         """test testing mode is disabled"""

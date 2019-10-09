@@ -1,5 +1,5 @@
 """
-    TODO: Add module docstring
+    Configuration parameters for the different environments (development, testing and production).
 """
 # pylint: disable=too-few-public-methods
 
@@ -32,6 +32,7 @@ class DevelopmentConfig(BaseConfig):
 class TestingConfig(BaseConfig):
     """Testing Configuration"""
 
+    SQLALCHEMY_DATABASE_URI = 'postgres://postgres:postgres@localhost:5432/spamandb_test'
     TESTING = True
 
 
