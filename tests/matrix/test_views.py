@@ -1,16 +1,24 @@
 """
     TODO: add module docstring
 """
-from flask_testing import TestCase
+# pylint: disable=no-member
+from tests import BaseTestCase
+from project.matrix.models import Matrix
 
-from project import create_app
 
-
-class MatrixBlueprintTest(TestCase):
+class MatrixBlueprintTest(BaseTestCase):
     """TODO: add class docstring"""
 
-    def create_app(self):
-        return create_app(settings='project.config.TestingConfig')
+    def test_add_page(self):
+        """test adding a new :class:`project.matrix.models.Matrix` object"""
+        form = {'name': self.fake.company(), 'algorithm_id': 4, 'salt': self.fake.md5()}
+        response = self.client.post('/matrix/add', data=form, follow_redirects=True)
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn('New matrix was created.', str(response.data))
+
+        # .............................test database entry exists
+        self.assertIsInstance(Matrix.query.filter_by(name=form['name']).first(), Matrix)
 
     def test_index_page(self):
         """TODO: add method docstring"""
