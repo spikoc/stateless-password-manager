@@ -1,17 +1,13 @@
 """
-    TODO: add module docstring
+    Contains the views of the 'matrix' blueprint.
 """
 # pylint: disable=invalid-name
-
-from hashlib import pbkdf2_hmac
-
-from binascii import hexlify
+# pylint: disable=no-member
 from datetime import datetime
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from project import db
 from project.matrix.forms import EditForm
-from project.matrix.helpers import prepare_form_data
 from project.matrix.models import Matrix
 
 matrix_blueprint = Blueprint('matrix', __name__, url_prefix='/matrix')
@@ -26,7 +22,7 @@ def index():
 @matrix_blueprint.route('/add', methods=['GET', 'POST'])
 def add():
     """Add a new :class:`project.matrix.models.Matrix` object."""
-    form = EditForm(request.form)
+    form = EditForm(request.form, obj=Matrix(algorithm_id=0))
 
     if form.validate_on_submit():
         model = Matrix(created_at=datetime.now(), modified_at=datetime.now())
@@ -38,7 +34,7 @@ def add():
         flash('New matrix was created.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=prepare_form_data(form, Matrix(algorithm_id=0)))
+    return render_template('matrix/edit.html', form=form)
 
 
 @matrix_blueprint.route('/delete')
@@ -53,7 +49,7 @@ def edit(matrix_id):
     model = Matrix.query.filter_by(id=matrix_id).first()
     assert model.id, "Matrix with '{0.id}' does not exist.".format(model)
 
-    form = EditForm(request.form)
+    form = EditForm(request.form, obj=model)
 
     if form.validate_on_submit():
         model.modified_at = datetime.now()
@@ -64,7 +60,7 @@ def edit(matrix_id):
         flash('Matrix was updated successfully.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=prepare_form_data(form, model))
+    return render_template('matrix/edit.html', form=form)
 
 
 @matrix_blueprint.route('/view')

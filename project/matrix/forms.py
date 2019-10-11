@@ -24,8 +24,9 @@ class EditForm(FlaskForm):
     symbols = BooleanField('Contains symbols')
     iterations = IntegerField(
         'Iterations',
-        description='iterations in calculation (higher means more computation required)')
-    length = IntegerField('Length')
+        description='iterations in calculation (higher means more computation required)',
+        default=1024)
+    length = IntegerField('Length', default=8)
 
     def __init__(self, *args, **kwargs):
         super(EditForm, self).__init__(*args, **kwargs)
