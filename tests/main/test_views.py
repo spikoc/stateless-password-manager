@@ -1,19 +1,14 @@
 """
-    TODO: add module docstring
+    Test views of the 'main' blueprint.
 """
-from flask_testing import TestCase
-
-from project import create_app
+from tests import BaseTestCase
 
 
-class MainBlueprintTest(TestCase):
-    """TODO: add class docstring"""
-
-    def create_app(self):
-        return create_app(settings='project.config.TestingConfig')
+class MainBlueprintTest(BaseTestCase):
+    """Test functionality of the 'main' blueprint."""
 
     def test_index_page(self):
-        """TODO: add method docstring"""
+        """test that home page is accessible"""
         response = self.client.get('/')
 
         self.assertEqual(200, response.status_code)
