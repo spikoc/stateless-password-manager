@@ -15,7 +15,7 @@ class BaseConfig:
     DEBUG = False
     DEBUG_TB_ENABLED = False
     LOGGING_FILE = 'spaman.log'
-    LOGGING_FORMAT = '%(asctime)s %(levelname)-8s %(funcName)-16s %(message)s'
+    LOGGING_FORMAT = '%(asctime)s %(levelname)-8s %(module)s.%(funcName)s:%(lineno)s %(message)s'
     SECRET_KEY = os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a')
     SQLALCHEMY_DATABASE_URI = 'postgres://postgres:postgres@localhost:5432/spamandb'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

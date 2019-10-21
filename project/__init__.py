@@ -50,13 +50,13 @@ def create_app(**kwargs):
     def page_not_found(error):
         """Redirect to a custom page when the return status code is 404."""
         app.logger.error('No "{0.path}" page found - {1}'.format(request, error))
-        return render_template('errors/page_not_found.html')
+        return render_template('errors/404.html')
 
     @app.errorhandler(500)
     def internal_server_error(error):
         """Redirect to a custom page when the return status code is 500."""
         app.logger.error(error)
-        return render_template('errors/internal_server_error.html')
+        return render_template('errors/500.html')
 
     return app
 

@@ -4,7 +4,7 @@
 # pylint: disable=invalid-name
 # pylint: disable=no-member
 from datetime import datetime
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 
 from project import db
 from project.matrix.forms import EditForm
@@ -47,7 +47,7 @@ def delete():
 def edit(matrix_id):
     """Edit an existing :class:`project.matrix.models.Matrix` object."""
     model = Matrix.query.filter_by(id=matrix_id).first()
-    assert model.id, "Matrix with '{0.id}' does not exist.".format(model)
+    model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
 
     form = EditForm(request.form, obj=model)
 

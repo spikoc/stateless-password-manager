@@ -14,6 +14,13 @@ class ErrorHandlersTest(BaseTestCase):
         self.assertEqual(200, response.status_code)
         self.assertIn('Page Not Found', str(response.data))
 
+    def test_500(self):
+        """test requested an object that does not exist in the database"""
+        response = self.client.get('/matrix/edit/100')
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn('Internal Server Error', str(response.data))
+
 
 class MainBlueprintTest(BaseTestCase):
     """Test functionality of the 'main' blueprint."""
