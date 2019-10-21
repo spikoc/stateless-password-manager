@@ -20,6 +20,10 @@ class DevelopmentConfigTest(TestCase):
         warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.DevelopmentConfig')
 
+    def tearDown(self):
+        if os.path.isfile(self.app.config.get('LOGGING_FILE')):
+            os.remove(self.app.config.get('LOGGING_FILE'))
+
     def test_app_name(self):
         """test the application name is correct"""
         self.assertEqual(APP_NAME, self.app.config.get('APP_NAME'))
@@ -73,6 +77,10 @@ class TestingConfigTest(TestCase):
         warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.TestingConfig')
 
+    def tearDown(self):
+        if os.path.isfile(self.app.config.get('LOGGING_FILE')):
+            os.remove(self.app.config.get('LOGGING_FILE'))
+
     def test_app_name(self):
         """test the application name is correct"""
         self.assertEqual(APP_NAME, self.app.config.get('APP_NAME'))
@@ -121,6 +129,10 @@ class ProductionConfigTest(TestCase):
     def create_app(self):
         warnings.filterwarnings('ignore', category=DeprecationWarning)
         return create_app(settings='project.config.ProductionConfig')
+
+    def tearDown(self):
+        if os.path.isfile(self.app.config.get('LOGGING_FILE')):
+            os.remove(self.app.config.get('LOGGING_FILE'))
 
     def test_app_name(self):
         """test the application name is correct"""
