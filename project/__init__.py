@@ -2,10 +2,11 @@
     Implements a WSGI application that acts as the central object.
 """
 # pylint: disable=invalid-name
+# pylint: disable=unused-variable
 
 import os
 
-from flask import Flask
+from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_sqlalchemy import SQLAlchemy
@@ -39,5 +40,11 @@ def create_app(**kwargs):
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(matrix_blueprint)
+
+    @app.errorhandler(404)
+    def page_not_found(error):
+        """Redirect to a custom page when the return status code is 404."""
+        print(error)
+        return render_template('errors/page_not_found.html'), 404
 
     return app
