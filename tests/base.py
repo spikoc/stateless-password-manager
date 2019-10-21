@@ -1,6 +1,7 @@
 """
     Contains common classes used in various test scenarios.
 """
+import os
 import warnings
 
 from faker import Faker
@@ -32,3 +33,6 @@ class BaseTestCase(TestCase):
     def tearDown(self):
         db.session.remove()
         db.drop_all()
+
+        if os.path.isfile(self.app.config.get('LOGGING_FILE')):
+            os.remove(self.app.config.get('LOGGING_FILE'))

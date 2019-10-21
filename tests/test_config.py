@@ -40,6 +40,10 @@ class DevelopmentConfigTest(TestCase):
         """test what environment the app is running in"""
         self.assertEqual('development', self.app.config.get('ENV'))
 
+    def test_logging_file(self):
+        """test filename of the logging file"""
+        self.assertEqual('spaman.log', self.app.config.get('LOGGING_FILE'))
+
     def test_secret_key(self):
         """test the secret key value is valid"""
         self.assertEqual(SECRET_KEY, self.app.config.get('SECRET_KEY'))
@@ -85,6 +89,10 @@ class TestingConfigTest(TestCase):
         """test what environment the app is running in"""
         self.assertEqual('production', self.app.config.get('ENV'))
 
+    def test_logging_file(self):
+        """test filename of the logging file"""
+        self.assertEqual('spaman.log', self.app.config.get('LOGGING_FILE'))
+
     def test_secret_key(self):
         """test the secret key value is valid"""
         self.assertEqual(SECRET_KEY, self.app.config.get('SECRET_KEY'))
@@ -129,6 +137,10 @@ class ProductionConfigTest(TestCase):
     def test_env(self):
         """test what environment the app is running in"""
         self.assertEqual('production', self.app.config.get('ENV'))
+
+    def test_logging_file(self):
+        """test filename of the logging file"""
+        self.assertEqual('spaman.log', self.app.config.get('LOGGING_FILE'))
 
     def test_secret_key(self):
         """test the secret key value is valid"""
