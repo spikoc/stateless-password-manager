@@ -15,13 +15,14 @@ matrix_blueprint = Blueprint('matrix', __name__, url_prefix='/matrix')
 
 @matrix_blueprint.route('/')
 def index():
-    """TODO: add function docstring"""
-    return render_template('matrix/index.html', items=Matrix.query.all())
+    """List all existing matrices sorted by date of last modification in descending order."""
+    return render_template(
+        'matrix/index.html', items=Matrix.query.order_by(Matrix.modified_at.desc()).all())
 
 
 @matrix_blueprint.route('/add', methods=['GET', 'POST'])
 def add():
-    """Add a new :class:`project.matrix.models.Matrix` object."""
+    """Store a new matrix."""
     form = EditForm(request.form, obj=Matrix(algorithm_id=0))
 
     if form.validate_on_submit():
@@ -39,7 +40,7 @@ def add():
 
 @matrix_blueprint.route('/delete/<int:matrix_id>', methods=['POST'])
 def delete(matrix_id):
-    """Delete a :class:`project.matrix.models.Matrix` object."""
+    """Delete matrix with the given id."""
     model = Matrix.query.filter_by(id=matrix_id).first()
     model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
 
@@ -52,7 +53,7 @@ def delete(matrix_id):
 
 @matrix_blueprint.route('/edit/<int:matrix_id>', methods=['GET', 'POST'])
 def edit(matrix_id):
-    """Edit an existing :class:`project.matrix.models.Matrix` object."""
+    """Update the values of an existing matrix."""
     model = Matrix.query.filter_by(id=matrix_id).first()
     model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
 
