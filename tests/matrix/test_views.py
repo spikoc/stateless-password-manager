@@ -59,3 +59,11 @@ class MatrixBlueprintTest(BaseTestCase):
 
         self.assertEqual(200, response.status_code)
         self.assertRegex(str(response.data), ordered_names)
+
+    def test_view_page(self):
+        """test display fields of matrix"""
+        model = Matrix.query.first()
+        response = self.client.get('/matrix/view/{0.id}'.format(model))
+
+        self.assertEqual(200, response.status_code)
+        self.assertRegex(str(response.data), 'disabled id="name".*value="{0.name}"'.format(model))

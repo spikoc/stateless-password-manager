@@ -38,11 +38,11 @@ def add():
     return render_template('matrix/edit.html', form=form)
 
 
-@matrix_blueprint.route('/delete/<int:matrix_id>', methods=['POST'])
-def delete(matrix_id):
-    """Delete matrix with the given id."""
-    model = Matrix.query.filter_by(id=matrix_id).first()
-    model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
+@matrix_blueprint.route('/delete/<int:mid>', methods=['POST'])
+def delete(mid):
+    """Delete matrix with the given `mid`."""
+    model = Matrix.query.filter_by(id=mid).first()
+    model or abort(500, "No Matrix object with '{0}' id.".format(mid))
 
     db.session.delete(model)
     db.session.commit()
@@ -51,11 +51,11 @@ def delete(matrix_id):
     return redirect(url_for('matrix.index'))
 
 
-@matrix_blueprint.route('/edit/<int:matrix_id>', methods=['GET', 'POST'])
-def edit(matrix_id):
-    """Update the values of an existing matrix."""
-    model = Matrix.query.filter_by(id=matrix_id).first()
-    model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
+@matrix_blueprint.route('/edit/<int:mid>', methods=['GET', 'POST'])
+def edit(mid):
+    """Update the fields of an existing matrix."""
+    model = Matrix.query.filter_by(id=mid).first()
+    model or abort(500, "No Matrix object with '{0}' id.".format(mid))
 
     form = EditForm(request.form, obj=model)
 
@@ -68,10 +68,14 @@ def edit(matrix_id):
         flash('Matrix was updated successfully.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=form, id=model.id)
+    return render_template('matrix/edit.html', form=form, id=model.id, view=False)
 
 
-@matrix_blueprint.route('/view')
-def view():
-    """TODO: add function docstring"""
-    return render_template('matrix/view.html')
+@matrix_blueprint.route('/view/<int:mid>')
+def view(mid):
+    """Display matrix fields."""
+    model = Matrix.query.filter_by(id=mid).first()
+    model or abort(500, "No Matrix object with '{0}' id.".format(mid))
+
+    form = EditForm(obj=model)
+    return render_template('matrix/edit.html', form=form, view=True)
