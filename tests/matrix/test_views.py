@@ -20,6 +20,17 @@ class MatrixBlueprintTest(BaseTestCase):
         # .............................test database entry exists
         self.assertIsInstance(Matrix.query.filter_by(name=form['name']).first(), Matrix)
 
+    def test_delete_page(self):
+        """test deleting a :class:`project.matrix.models.Matrix` object"""
+        model = Matrix.query.first()
+        response = self.client.post('/matrix/delete/{0.id}'.format(model), follow_redirects=True)
+
+        self.assertEqual(200, response.status_code)
+        self.assertIn('Matrix was deleted successfully.', str(response.data))
+
+        # .............................test database entry does not exist
+        self.assertIsNone(Matrix.query.filter_by(id=model.id).first())
+
     def test_edit_page(self):
         """test editing an existing :class:`project.matrix.models.Matrix` object"""
         model = Matrix.query.first()
@@ -34,7 +45,7 @@ class MatrixBlueprintTest(BaseTestCase):
                                     follow_redirects=True)
 
         self.assertEqual(200, response.status_code)
-        self.assertIn("Matrix was updated successfully.", str(response.data))
+        self.assertIn('Matrix was updated successfully.', str(response.data))
 
         # .............................test database entry is updated
         self.assertEqual(model.name, Matrix.query.filter_by(id=model.id).first().name)

@@ -77,5 +77,15 @@
 
         <button class="btn btn-success" type="submit">Save</button>
     </form>
+
+    <br />
+
+    {% if id %}
+    <form class="form" role="form" method="post" action="/matrix/delete/{{ id }}">
+        {{ form.csrf_token }}
+        {{ wtf.form_errors(form) }}
+        <button class="btn btn-danger">Delete Me!</button>
+    </form>
+    {% endif %}
 </div>
 {% endblock %}

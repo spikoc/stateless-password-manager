@@ -37,10 +37,17 @@ def add():
     return render_template('matrix/edit.html', form=form)
 
 
-@matrix_blueprint.route('/delete')
-def delete():
-    """TODO: add function docstring"""
-    return render_template('matrix/index.html')
+@matrix_blueprint.route('/delete/<int:matrix_id>', methods=['POST'])
+def delete(matrix_id):
+    """Delete a :class:`project.matrix.models.Matrix` object."""
+    model = Matrix.query.filter_by(id=matrix_id).first()
+    model or abort(500, "No Matrix object with '{0}' id.".format(matrix_id))
+
+    db.session.delete(model)
+    db.session.commit()
+
+    flash('Matrix was deleted successfully.', 'success')
+    return redirect(url_for('matrix.index'))
 
 
 @matrix_blueprint.route('/edit/<int:matrix_id>', methods=['GET', 'POST'])
@@ -60,7 +67,7 @@ def edit(matrix_id):
         flash('Matrix was updated successfully.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=form)
+    return render_template('matrix/edit.html', form=form, id=model.id)
 
 
 @matrix_blueprint.route('/view')
