@@ -7,7 +7,7 @@ from datetime import datetime
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 
 from project import db
-from project.matrix.forms import EditForm
+from project.matrix.forms import EditForm, PasswordForm
 from project.matrix.models import Matrix
 
 matrix_blueprint = Blueprint('matrix', __name__, url_prefix='/matrix')
@@ -78,4 +78,5 @@ def view(mid):
     model or abort(500, "No Matrix object with '{0}' id.".format(mid))
 
     form = EditForm(obj=model)
-    return render_template('matrix/edit.html', form=form, view=True)
+    return render_template(
+        'matrix/edit.html', form=form, password_form=PasswordForm(), view=True)

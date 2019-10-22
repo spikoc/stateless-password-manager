@@ -2,7 +2,7 @@
     Contains all the forms used in the blueprint.
 """
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, IntegerField, SelectField, StringField
+from wtforms import BooleanField, IntegerField, PasswordField, SelectField, StringField
 
 from project.matrix.models import Algorithm
 
@@ -35,3 +35,10 @@ class EditForm(FlaskForm):
         self.algorithm_id.choices = [(0, '-- select a hash algorithm --')]
         self.algorithm_id.choices.extend(
             [(x.id, x.name) for x in Algorithm.query.order_by(Algorithm.name).all()])
+
+
+class PasswordForm(FlaskForm):
+    """TODO: add class docstring"""
+
+    secret_key = StringField('Secret Key')
+    password = PasswordField('Password')
