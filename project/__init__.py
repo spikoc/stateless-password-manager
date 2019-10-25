@@ -36,7 +36,7 @@ def create_app(**kwargs):
     # .................................register blueprints
     from project.main.views import main_blueprint
     from project.matrix.views import matrix_blueprint
-    from project.evaluate.views import  evaluate_blueprint
+    from project.evaluate.views import evaluate_blueprint
 
     app.register_blueprint(main_blueprint)
     app.register_blueprint(matrix_blueprint)
