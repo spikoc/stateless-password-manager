@@ -14,6 +14,6 @@ Users can use the same secret key for all their passwords, as the generated pass
 for each matrix, because in every matrix it is stored a salt that makes the search space larger in
 the case of brute forcing. Moreover, salt makes the generated password unique.
 
-**Remember one secret key to access all your passwords, anytime and anywhere**
+### Remember one secret key to access all your passwords, anytime and anywhere
 
 ![One to rule them all](project/static/images/lordoftherings.jpg)
