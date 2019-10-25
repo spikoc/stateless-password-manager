@@ -17,7 +17,11 @@
             <div class="col-sm-10">{{ form.password(class_='form-control') }}
                 <small class="form-text text-muted">{{ form.password.description }}</small>
             </div>
-
+            {% if power %}
+            <div class="col-sm-10">
+                {{power}}
+            </div>
+            {% endif%}
         </div>
 
         <button class="btn btn-success" type="submit">Evaluate</button>
