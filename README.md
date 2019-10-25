@@ -1,4 +1,4 @@
-#Stateless Password Manager
+# Stateless Password Manager
 
 Generate strong and secure passwords that can be accessed anytime, anywhere. This app is not just a
 common password manager; the generated passwords are not stored in the database.
